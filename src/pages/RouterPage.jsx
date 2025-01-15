@@ -10,7 +10,7 @@ export default function RouterPage() {
     <Router>
         <Routes>
             <Route path='/' element={<Home/>} />
-            <Route path="/tasks/:projectId" element={<Tasks />} />
+            <Route path="/logs/:projectId" element={<Tasks />} />
 
             {/* <Route path='*' element={<NotFound/>} /> */}
         </Routes>

@@ -12,28 +12,9 @@ import {
     TableRow,
   } from "@/components/ui/table"
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, ArrowUpRight, ChevronLeft, ChevronRight, Clock, Loader, Pencil, Trash2 } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, ChevronLeft, ChevronRight, Clock, Loader, Pencil, Trash2, Users, X } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import ModalImage from 'react-modal-image';
-import {
-    Sheet,
-    SheetClose,
-    SheetContent,
-    SheetDescription,
-    SheetFooter,
-    SheetHeader,
-    SheetTitle,
-    SheetTrigger,
-  } from "@/components/ui/sheet"
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-  } from "@/components/ui/dialog"
 import {
     Tooltip,
     TooltipContent,
@@ -55,6 +36,21 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import parse from 'html-react-parser';
 import ScrollToTop from './ScrollToTop';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { Helmet } from 'react-helmet';
 
 const TasksWeb = () => {
     const { projectId } = useParams();
@@ -65,6 +61,8 @@ const TasksWeb = () => {
     const [editTask, setEditTask] = useState(null); // To store the task being edited
     const [editedName, setEditedName] = useState('');
     const [editedImage, setEditedImage] = useState(null); // For storing the new image
+    const [showAdd, setShowAdd] = useState(false);
+    const [showTask, setShowTask] = useState(null); // To store the task being edited
 
     const [searchTerm, setSearchTerm] = useState('');
     const [statusCounts, setStatusCounts] = useState({
@@ -216,7 +214,7 @@ const TasksWeb = () => {
 
     const handleDelete = (id) => {
         // Show a confirmation alert before proceeding with the delete action
-        const isConfirmed = window.confirm('Yakin ingin hapus task ini?');
+        const isConfirmed = window.confirm('Yakin ingin hapus log ini?');
     
         if (isConfirmed) {
             // Proceed with the delete request if confirmed
@@ -231,6 +229,11 @@ const TasksWeb = () => {
     // Handle opening the modal for editing a task
   const handleEdit = (task) => {
     setEditTask(task);
+    setEditedName(task.name);
+  };
+
+  const handleDetail = (task) => {
+    setShowTask(task);
     setEditedName(task.name);
   };
 
@@ -261,6 +264,21 @@ const TasksWeb = () => {
     }
   };
   
+  const handleAdd = () => {
+    setShowAdd(true)
+  };
+
+  const handleCloseAdd = () => {
+    setShowAdd(false)
+  };
+
+  const handleCloseEdit = () => {
+    setEditTask(false)
+  };
+
+  const handleCloseDetail = () => {
+    setShowTask(false)
+  };
 
   const filteredTasks = tasks.filter(task =>
     task.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -483,6 +501,9 @@ const TasksWeb = () => {
 
     return (
         <div>
+          <Helmet>
+            <title>{project ? project.name : '...'} - Energeek Design Changelogs </title>
+          </Helmet>
           <ScrollToTop />
           <TooltipProvider>
             <Tooltip>
@@ -496,7 +517,7 @@ const TasksWeb = () => {
           </TooltipProvider>
           <div className="container min-h-screen py-12">
               <h1 className="text-2xl font-bold my-4">Design Logs {project ? project.name : '...'}</h1>
-              <form onSubmit={handleSubmit} className="flex flex-col gap-6 pt-4 pb-8 mb-8 border-b items-start">
+              {/* <form onSubmit={handleSubmit} className="flex flex-col gap-6 pt-4 pb-8 mb-8 border-b items-start">
                   <div className='flex w-full items-start '>
                     <p className='text-sm mb-1 w-[300px]'>Changelogs</p>
                     <div className='flex flex-col gap-2 w-full'>
@@ -513,11 +534,11 @@ const TasksWeb = () => {
                       {error && <p className="text-red-500 text-sm w-full">Nama Task is required.</p>}
                     </div>
                   </div>
-                  {/* <div className='flex w-full items-start'>
+                  <div className='flex w-full items-start'>
                     <p className='text-sm mb-1 w-[300px] invisible'>Nama Task</p>
                     {error && <p className="text-red-500 text-sm w-full">Nama Task is required.</p>}
-                  </div> */}
-                  {/* <div className='flex w-full items-center'>
+                  </div>
+                  <div className='flex w-full items-center'>
                       <p className='text-sm mb-1 w-[300px]'>Upload Gambar <span className='opacity-50'>*opsional</span></p>
                       <Input
                           className="p-2 border rounded-lg w-full"
@@ -526,26 +547,26 @@ const TasksWeb = () => {
                           onChange={(e) => setForm({ ...form, image: e.target.files[0] })}
                           disabled={loading}
                       />
-                  </div> */}
+                  </div>
                   <div className='flex w-full items-center'>
                       <p className='text-sm mb-1 w-[300px] invisible'>Aksi</p>
                       <div className='w-full'>
                         <Button className="rounded-lg" disabled={loading}> {loading && <Loader className="animate-spin mr-2 h-4 w-4" /> } Tambah</Button>
                       </div>
                   </div>
-              </form>
+              </form> */}
               <div className='flex flex-col md:flex-row w-full gap-x-4 items-start'>
-                  <div className='flex gap-x-2 w-[80%]'>
+                  <div className='flex gap-x-2 w-[100%]'>
                     {/* <Link to='/'><Button variant='outline'> <ArrowLeft className='w-4 h-4 mr-2' /> Back</Button></Link> */}
                     <Input
                         type="search"
-                        placeholder="Cari tasks..."
+                        placeholder="Cari logs..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className="p-2 border rounded mb-4 rounded-lg max-w-full md:max-w-[300px]"
                     />
                   </div>
-                  <div className='flex flex-col w-full'>
+                  <div className='flex flex-col w-full mr-4'>
                     <div className='flex gap-4'>
                       <div className='my-2 w-full w-full'>
                           <div className='flex gap-[2px]'>
@@ -646,6 +667,7 @@ const TasksWeb = () => {
                       </div>
                     </div>
                   </div>
+                  <Button onClick={handleAdd}>Tambah</Button>
               </div>
               <div className='mt-2 mb-4 w-[100%] p-0'>
                   <div className='flex w-full'>
@@ -874,154 +896,136 @@ const TasksWeb = () => {
                       </div>
                   </div>
               </div>
-              <Table className='rounded-lg border mb-4'>
-                  {/* <TableCaption>A list of {project ? project.name : '...'} design tasks.</TableCaption> */}
-                  <TableHeader>
-                  <TableRow className='bg-stone-100 dark:bg-stone-800'>
-                      <TableHead className="text-center w-[50px]">*</TableHead>
-                      <TableHead className="w-full">Logs</TableHead>
-                      <TableHead className="text-center w-[200px]">Pelapor</TableHead>
-                      <TableHead className="text-center w-[200px]">Eksekutor</TableHead>
-                      <TableHead className="text-center w-[200px]">Status</TableHead>
-                      <TableHead className="text-center w-[200px]">Aksi</TableHead>
-                  </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                  {paginatedTasks.map((task) => (
-                      <TableRow key={task.id}>
-                          <TableCell>
-                              <div
-                                  className={`w-3 h-3 rounded-full ${
-                                      task.status === 'completed' ? 'bg-green-500' :
-                                      task.status === 'ongoing' ? 'bg-purple-500' : 'bg-stone-400'
-                                  }`}>
-                              </div>
-                          </TableCell>
-                          <TableCell className="font-medium ">
-                              <div className='flex flex-col'>
-                                <div className='flex gap-3 items-center'>
-                                  {/* <div>
-                                  {task.image && (
-                                      <ModalImage
-                                          small={`https://designtest.energeek.id/crud-api/uploads/${task.image}`}
-                                          large={`https://designtest.energeek.id/crud-api/uploads/${task.image}`}
-                                          className="my-2 w-[50px] h-[50px] object-cover rounded-lg"
-                                      />
-                                  )}
-                                  </div> */}
-                                  <div className='flex flex-col gap-2 w-[300px] md:w-[90%]'>
-                                    {/* <p className='line-clamp-[1] font-medium opacity-70'>{task.name}</p> */}
-                                    <p className='line-clamp-[1] font-medium opacity-70 text-ellipsis table-detail'><HtmlRenderer html={task.name} /></p>
-                                    <p className='font-light text-xs opacity-70 flex items-center gap-1'> 
-                                      <TooltipProvider>
-                                          <Tooltip>
-                                            <TooltipTrigger asChild>
-                                              <Clock className='w-4 h-4 opacity-80' />
-                                            </TooltipTrigger>
-                                            <TooltipContent>
-                                              <p>Tanggal dibuat</p>
-                                            </TooltipContent>
-                                          </Tooltip>
-                                        </TooltipProvider>
-                                      {formatDate(task.created_at)}</p>
-                                  </div>
+              <div className='rounded-md border mb-6'>
+                <Table>
+                    <TableHeader>
+                    <TableRow>
+                        <TableHead className="text-center w-[50px]">*</TableHead>
+                        <TableHead className="w-full">Logs</TableHead>
+                        <TableHead className="text-center w-[200px]">Pelapor</TableHead>
+                        <TableHead className="text-center w-[200px]">Eksekutor</TableHead>
+                        <TableHead className="text-center w-[200px]">Status</TableHead>
+                        <TableHead className="text-center w-[200px]">Aksi</TableHead>
+                    </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                    {paginatedTasks.map((task) => (
+                        <TableRow key={task.id}>
+                            <TableCell>
+                                <div
+                                    className={`w-3 h-3 rounded-full ${
+                                        task.status === 'completed' ? 'bg-green-500' :
+                                        task.status === 'ongoing' ? 'bg-purple-500' : 'bg-stone-400'
+                                    }`}>
                                 </div>
-                                  
-                              </div>
-                          </TableCell>
-                          <TableCell>
-                            <select
-                                  value={task.pelapor}
-                                  onChange={(e) => handlePelaporChange(task.id, e.target.value)}
-                                  className="p-2 bg-transparent rounded dark:bg-black"
-                              >
-                                  <option value="ivan">Ivan</option>
-                                  <option value="drajat">Drajat</option>
-                              </select>
-                          </TableCell>
-                          <TableCell>
-                            <select
-                                  value={task.eksekutor}
-                                  onChange={(e) => handleEksekutorChange(task.id, e.target.value)}
-                                  className="p-2 bg-transparent rounded dark:bg-black"
-                              >
-                                  <option disabled selected>Pilih</option>
-                                  <option value="joko">Joko</option>
-                                  <option value="hanif">Hanif</option>
-                                  <option value="ikke">Ikke</option>
-                                  <option value="aria">Aria</option>
-                                  <option value="fatchur">Fatchur</option>
-                                  <option value="rifan">Rifan</option>
-                                  <option value="evan">Evan</option>
-                                  <option value="rico">Rico</option>
-                                  <option value="fahmi">Fahmi</option>
-                                  <option value="algiant">Algiant</option>
-                                  <option value="ardy">Ardy</option>
-                                  <option value="bakhrul">Bakhrul</option>
-                                  <option value="fenti">fenti</option>
-                              </select>
-                          </TableCell>
-                          <TableCell>
-                            <select
-                                  value={task.status}
-                                  onChange={(e) => handleStatusChange(task.id, e.target.value)}
-                                  className="p-2 bg-transparent rounded dark:bg-black"
-                              >
-                                  <option value="pending">Pending</option>
-                                  <option value="completed">Completed</option>
-                                  <option value="ongoing">On Going</option>
-                              </select>
-                          </TableCell>
-                          <TableCell className="space-x-2 flex text-right w-full py-6">
-                              <TooltipProvider>
-                                <Tooltip>
-                                  <TooltipTrigger asChild>
-                                    <Button size='icon' variant='ghost' onClick={() => handleDelete(task.id)}><Trash2 className="h-4 w-4 text-rose-500" /></Button>
-                                  </TooltipTrigger>
-                                  <TooltipContent>
-                                    <p>Hapus Task</p>
-                                  </TooltipContent>
-                                </Tooltip>
-                              </TooltipProvider>
-                              <Sheet>
-                                  <SheetTrigger asChild>
-                                      <Button variant="outline"> Detail <ArrowUpRight className='w-4 h-4 ml-1' /></Button>
-                                  </SheetTrigger>
-                                  <SheetContent>
-                                      <SheetHeader>
-                                        <SheetTitle className='pb-3'><Button variant='secondary' onClick={() => handleEdit(task)}> <Pencil /> Edit Logs</Button></SheetTitle>
-                                      </SheetHeader>
-                                      <div className="grid gap-4 h-[96vh] md:h-[88vh] overflow-y-scroll">
-                                          <div className='flex flex-col gap-1 md:pr-4 task-detail'>
-                                              {task.image && (
-                                                  <ModalImage
-                                                    small={`https://designtest.energeek.id/crud-api/uploads/${task.image}`}
-                                                    large={`https://designtest.energeek.id/crud-api/uploads/${task.image}`}
-                                                      // alt={task.name}
-                                                      className="my-2 w-auto h-full object-cover rounded-lg border"
-                                                  />
-                                              )}
-                                              {/* <p className='text-sm mt-4'>{task.task}</p> */}
-
-                                              <div className='mt-4 pb-12'>
-                                                <HtmlRenderer html={task.name} />
-                                              </div>
-                                          </div>
-                                      </div>
-                                      {/* <SheetFooter className='py-4'>
-                                          <SheetClose asChild>
-                                              
-                                          <Button onClick={() => handleEdit(task)}>Edit Task</Button>
-                                          </SheetClose>
-                                      </SheetFooter> */}
-                                  </SheetContent>
-                                  </Sheet>
-                          </TableCell>
-                      </TableRow>
-                  ))}
-                  </TableBody>
-              </Table>
-
+                            </TableCell>
+                            <TableCell className="font-medium ">
+                                <div className='flex flex-col'>
+                                  <div className='flex gap-3 items-center'>
+                                    {/* <div>
+                                    {task.image && (
+                                        <ModalImage
+                                            small={`https://designtest.energeek.id/crud-api/uploads/${task.image}`}
+                                            large={`https://designtest.energeek.id/crud-api/uploads/${task.image}`}
+                                            className="my-2 w-[50px] h-[50px] object-cover rounded-lg"
+                                        />
+                                    )}
+                                    </div> */}
+                                    <div className='flex flex-col gap-2 w-[300px] md:w-[90%]'>
+                                      {/* <p className='line-clamp-[1] font-medium opacity-70'>{task.name}</p> */}
+                                      <p className='line-clamp-[1] font-medium opacity-70 text-ellipsis table-detail'><HtmlRenderer html={task.name} /></p>
+                                      <p className='font-light text-xs opacity-70 flex items-center gap-1'> 
+                                        <TooltipProvider>
+                                            <Tooltip>
+                                              <TooltipTrigger asChild>
+                                                <Clock className='w-4 h-4 opacity-80' />
+                                              </TooltipTrigger>
+                                              <TooltipContent>
+                                                <p>Tanggal dibuat</p>
+                                              </TooltipContent>
+                                            </Tooltip>
+                                          </TooltipProvider>
+                                        {formatDate(task.created_at)}</p>
+                                    </div>
+                                  </div>
+                                    
+                                </div>
+                            </TableCell>
+                            <TableCell>
+                              <select
+                                    value={task.pelapor}
+                                    onChange={(e) => handlePelaporChange(task.id, e.target.value)}
+                                    className="p-2 bg-transparent rounded dark:bg-black"
+                                >
+                                    <option value="ivan">Ivan</option>
+                                    <option value="drajat">Drajat</option>
+                                </select>
+                            </TableCell>
+                            <TableCell>
+                              <select
+                                    value={task.eksekutor}
+                                    onChange={(e) => handleEksekutorChange(task.id, e.target.value)}
+                                    className="p-2 bg-transparent rounded dark:bg-black"
+                                >
+                                    <option disabled selected>Pilih</option>
+                                    <option value="joko">Joko</option>
+                                    <option value="hanif">Hanif</option>
+                                    <option value="ikke">Ikke</option>
+                                    <option value="aria">Aria</option>
+                                    <option value="fatchur">Fatchur</option>
+                                    <option value="rifan">Rifan</option>
+                                    <option value="evan">Evan</option>
+                                    <option value="rico">Rico</option>
+                                    <option value="fahmi">Fahmi</option>
+                                    <option value="algiant">Algiant</option>
+                                    <option value="ardy">Ardy</option>
+                                    <option value="bakhrul">Bakhrul</option>
+                                    <option value="fenti">fenti</option>
+                                </select>
+                            </TableCell>
+                            <TableCell>
+                              <select
+                                    value={task.status}
+                                    onChange={(e) => handleStatusChange(task.id, e.target.value)}
+                                    className="p-2 bg-transparent rounded dark:bg-black"
+                                >
+                                    <option value="pending">Pending</option>
+                                    <option value="completed">Completed</option>
+                                    <option value="ongoing">On Going</option>
+                                </select>
+                            </TableCell>
+                            <TableCell className="space-x-2 flex text-right w-full py-6">
+                                <DropdownMenu>
+                                  <DropdownMenuTrigger asChild>
+                                    <Button variant="outline">Opsi</Button>
+                                  </DropdownMenuTrigger>
+                                  <DropdownMenuContent className="w-40">
+                                    <DropdownMenuLabel>Aksi</DropdownMenuLabel>
+                                    <DropdownMenuSeparator />
+                                    <DropdownMenuGroup>
+                                      <DropdownMenuItem onClick={() => handleDetail(task)}>
+                                        <ArrowUpRight />
+                                        <span>Detail</span>
+                                      </DropdownMenuItem>
+                                      <DropdownMenuItem onClick={() => handleEdit(task)}>
+                                        <Pencil />
+                                        <span>Edit</span>
+                                      </DropdownMenuItem>
+                                    </DropdownMenuGroup>
+                                    <DropdownMenuSeparator />
+                                    <DropdownMenuItem onClick={() => handleDelete(task.id)} className='bg-rose-50 hover:bg-rose-100 dark:bg-black text-rose-500 hover:text-rose-500'>
+                                      <Trash2 />
+                                      <span>Hapus</span>
+                                    </DropdownMenuItem>
+                                  </DropdownMenuContent>
+                                </DropdownMenu>
+                                
+                            </TableCell>
+                        </TableRow>
+                    ))}
+                    </TableBody>
+                </Table>
+              </div>
               <p className='text-sm font-light opacity-70 text-center mb-4'>List of {project ? project.name : '...'} design logs.</p>
 
               {/* Pagination */}
@@ -1074,44 +1078,67 @@ const TasksWeb = () => {
                     </PaginationItem>
                 </PaginationContent>
             </Pagination>
-            
-
-              {editTask && (
-          <Dialog open={!!editTask} onOpenChange={(open) => !open && setEditTask(null)}>
-            <DialogTrigger asChild>
-              <Button>Edit Task</Button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
-              <DialogHeader>
-                {/* <DialogTitle>Edit Task</DialogTitle> */}
-                <DialogDescription>
-                  Lakukan perubahan pada tugas Anda di sini. Klik simpan setelah selesai.
-                </DialogDescription>
-              </DialogHeader>
-              <div className="grid gap-4 pb-4 h-[380px]">
-                {/* <Textarea
-                  label="Task Name"
-                  value={editedName}
-                  onChange={(e) => setEditedName(e.target.value)}
-                  placeholder="Task name"
-                  required
-                /> */}
-                <ReactQuill
-                  theme="snow"
-                  value={editedName} // Bind the current value
-                  onChange={(value) => setEditedName(value)} // Update state directly with the new value
-                  placeholder="Task name"
-                  modules={{ toolbar: fullToolbarOptions }}
-                  className="quill-editor h-[300px]"
-                />
-              </div>
-              <DialogFooter>
-                <Button onClick={handleSaveChanges}>Simpan</Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
-        )}
           </div>
+
+          {showAdd && (
+            <div className='fixed bg-white dark:bg-black w-screen h-screen top-0 left-0' id='home'>
+              <div className='flex flex-col items-center justify-center h-[100vh] md:px-[25vw]'>
+                <form onSubmit={handleSubmit} className="flex flex-col gap-6 pt-4 pb-8 mb-8 items-start">
+                    <div className='flex flex-col gap-3 w-full items-start '>
+                      <p className='text-xl mb-1 font-semibold'>Tambah Changelogs</p>
+                      <div className='flex flex-col gap-2 w-full'>
+                        <ReactQuill
+                          theme="snow"
+                          value={form.name}
+                          onChange={(value) => setForm({ ...form, name: value })} // Directly use the value
+                          modules={{ toolbar: fullToolbarOptions }}
+                          className={`quill-editor w-full rounded ${error ? "border-red-500" : ""}`}
+                          required
+                          disabled={loading}
+                        />
+                        {error && <p className="text-red-500 text-sm w-full">Nama Task is required.</p>}
+                      </div>
+                    </div>
+                    <div className='flex w-full items-center'>
+                      <Button className="rounded-lg" disabled={loading}> {loading && <Loader className="animate-spin mr-2 h-4 w-4" /> } Tambah</Button>
+                    </div>
+                </form>
+                <X className='h-6 w-6 fixed top-12 right-12 dark:text-white cursor-pointer' onClick={handleCloseAdd} />
+              </div>
+            </div>
+          )}
+
+          {editTask && (
+            <div open={!!editTask} onOpenChange={(open) => !open && setEditTask(null)} className='fixed bg-white dark:bg-black w-screen h-screen top-0 left-0' id='home'>
+              <div className='flex flex-col items-center justify-center h-[100vh] md:px-[20vw]'>
+                <div className='flex flex-col gap-3'>
+                  <p className='text-xl mb-1 font-semibold'>Edit Changelogs</p>
+                  <ReactQuill
+                      theme="snow"
+                      value={editedName} // Bind the current value
+                      onChange={(value) => setEditedName(value)} // Update state directly with the new value
+                      placeholder="Task name"
+                      modules={{ toolbar: fullToolbarOptions }}
+                      className="quill-editor"
+                    />
+                  <Button className='w-fit' onClick={handleSaveChanges}>Simpan</Button>
+                </div>
+                <X className='h-6 w-6 fixed top-12 right-12 dark:text-white cursor-pointer' onClick={handleCloseEdit} />
+              </div>
+            </div>
+          )}
+
+          {showTask && (
+            <div open={!!showTask} onOpenChange={(open) => !open && setShowTask(null)} className='fixed bg-white dark:bg-black w-screen h-screen top-0 left-0' id='home'>
+              <div className='flex flex-col h-[100vh] md:px-[25vw]'>
+                <div className='flex flex-col gap-3 h-screen overflow-y-scroll py-12 log-detail'>
+                  {/* <p className='text-xl mb-1 font-semibold'>Edit Changelogs</p> */}
+                  <HtmlRenderer html={showTask.name} className='w-full' />
+                </div>
+                <X className='h-6 w-6 fixed top-12 right-12 dark:text-white cursor-pointer' onClick={handleCloseDetail} />
+              </div>
+            </div>
+          )}
         </div>
     );
 };

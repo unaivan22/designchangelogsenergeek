@@ -30,6 +30,7 @@ import {
     TooltipTrigger,
   } from "@/components/ui/tooltip"
 import { motion, AnimatePresence } from 'framer-motion';
+import { Helmet } from 'react-helmet';
 
 const Home = () => {
     const [projects, setProjects] = useState([]);
@@ -185,10 +186,15 @@ const Home = () => {
 
     return (
         <section>
+            <Helmet>
+                <title>Energeek Design Changelogs </title>
+            </Helmet>
             <div className="container min-h-screen py-12">
-                <div className='flex items-center gap-x-2'>
-                    <img src='/e.svg' className='w-8' />
-                    <h1 className="text-2xl font-bold">Energeek - Design Changelogs </h1> 
+                <div className='flex items-center justify-between gap-x-2'>
+                    <div className='flex items-center gap-2'>
+                        <img src='/e.svg' className='w-8' />
+                        <h1 className="text-2xl font-bold">Energeek - Design Changelogs </h1> 
+                    </div>
                     <ModeToggle />
                 </div>
                 <div className='flex flex-col md:flex-row items-center gap-4 md:gap-x-24 my-6 w-full'>
@@ -197,7 +203,7 @@ const Home = () => {
                         placeholder="Cari projects..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="p-2 border rounded rounded-lg max-w-full md:max-w-[200px] order-2 md:order-1"
+                        className="p-2 border rounded rounded-lg max-w-full md:w-[200px] order-2 md:order-1"
                     />
                     <form onSubmit={handleSubmit} className="flex gap-3 w-full items-center order-1 md:order-2">
                         <PlusCircleIcon className='w-6 h-6 opacity-60'/>
@@ -213,51 +219,53 @@ const Home = () => {
                     </form>
                 </div>
 
-                <Table className='bg-white dark:bg-black border shadow-sm rounded-xl mb-4'>
-                    <TableHeader>
-                        <TableRow className='bg-stone-100 dark:bg-stone-800'>
-                            <TableHead className="w-full">Project</TableHead>
-                            <TableHead className="text-center w-[200px]">Aksi</TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody className='items-center'>
-                        {paginatedProjects.map((project) => (
-                            <TableRow key={project.id}>
-                                <TableCell className="font-medium">{project.name}</TableCell>
-                                <TableCell className="space-x-2 flex text-right w-full items-center">
-                                    <TooltipProvider>
-                                        <Tooltip>
-                                            <TooltipTrigger asChild>
-                                                <Button size='icon' variant='ghost' onClick={() => handleDelete(project.id)}>
-                                                    <Trash2 className="h-4 w-4 text-rose-500" />
-                                                </Button>
-                                            </TooltipTrigger>
-                                            <TooltipContent>
-                                                <p>Hapus Project</p>
-                                            </TooltipContent>
-                                        </Tooltip>
-                                    </TooltipProvider>
-                                    <Button variant="outline" onClick={() => handleEdit(project)}>
-                                        Edit
-                                    </Button>
-                                    <Link to={`/tasks/${project.id}`}>
-                                        <Button variant='outline' className='w-auto py-[5px] h-auto'>
-                                            <div className='flex flex-col'>
-                                                <div className='flex items-center'>
-                                                    Detail
-                                                    <ArrowUpRight className="h-4 w-4 ml-1" />
-                                                </div>
-                                                <p className='text-[.7rem] opacity-80 font-light'>{Number(project.pending_count || 0) + Number(project.ongoing_count || 0) === 0 
-                                                    ? 'No log' 
-                                                    : `${Number(project.pending_count || 0) + Number(project.ongoing_count || 0)} Log${Number(project.pending_count || 0) + Number(project.ongoing_count || 0) > 1 ? 's' : ''}`}</p>
-                                            </div>
-                                        </Button>
-                                    </Link>
-                                </TableCell>
+                <div className='rounded-md border mb-6'>
+                    <Table>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead className="w-full">Project</TableHead>
+                                <TableHead className="text-center w-[200px]">Aksi</TableHead>
                             </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
+                        </TableHeader>
+                        <TableBody className='items-center'>
+                            {paginatedProjects.map((project) => (
+                                <TableRow key={project.id}>
+                                    <TableCell className="font-medium">{project.name}</TableCell>
+                                    <TableCell className="space-x-2 flex text-right w-full items-center">
+                                        <TooltipProvider>
+                                            <Tooltip>
+                                                <TooltipTrigger asChild>
+                                                    <Button size='icon' variant='ghost' onClick={() => handleDelete(project.id)}>
+                                                        <Trash2 className="h-4 w-4 text-rose-500" />
+                                                    </Button>
+                                                </TooltipTrigger>
+                                                <TooltipContent>
+                                                    <p>Hapus Project</p>
+                                                </TooltipContent>
+                                            </Tooltip>
+                                        </TooltipProvider>
+                                        <Button variant="outline" onClick={() => handleEdit(project)}>
+                                            Edit
+                                        </Button>
+                                        <Link to={`/logs/${project.id}`}>
+                                            <Button variant='outline' className='w-auto py-[5px] h-auto'>
+                                                <div className='flex flex-col'>
+                                                    <div className='flex items-center'>
+                                                        Detail
+                                                        <ArrowUpRight className="h-4 w-4 ml-1" />
+                                                    </div>
+                                                    <p className='text-[.7rem] opacity-80 font-light'>{Number(project.pending_count || 0) + Number(project.ongoing_count || 0) === 0 
+                                                        ? 'No log' 
+                                                        : `${Number(project.pending_count || 0) + Number(project.ongoing_count || 0)} Log${Number(project.pending_count || 0) + Number(project.ongoing_count || 0) > 1 ? 's' : ''}`}</p>
+                                                </div>
+                                            </Button>
+                                        </Link>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </div>
 
                 {/* Pagination */}
                 <Pagination>
@@ -316,7 +324,7 @@ const Home = () => {
                     <DialogContent className="sm:max-w-[425px]">
                         <DialogHeader>
                             <DialogDescription>
-                                Make changes to your project here. Click save when you're done.
+                                Lakukan perubahan nama project disini. klik simpan jika sudah selesai
                             </DialogDescription>
                         </DialogHeader>
                         <div className="grid gap-4 py-4">
@@ -329,7 +337,7 @@ const Home = () => {
                             />
                         </div>
                         <DialogFooter>
-                            <Button onClick={handleSaveChanges}>Save changes</Button>
+                            <Button onClick={handleSaveChanges}>Simpan</Button>
                         </DialogFooter>
                     </DialogContent>
                 </Dialog>

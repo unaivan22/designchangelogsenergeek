@@ -201,7 +201,7 @@ html.dark{
 /* quill */
 
 .ql-editor{
-  min-height: 200px !important;
+  height: 450px !important;
 }
 
 .ql-toolbar.ql-snow{
@@ -213,6 +213,7 @@ html.dark{
 .ql-container.ql-snow{
   border: 1px solid #d5d5d5 !important;
   border-radius: 12px !important;
+  height: 450px !important;
 }
 
 
@@ -238,7 +239,7 @@ blockquote span {
   background: #f9f9f9;
 }
 
-.task-detail p a{
+.log-detail p a{
   text-decoration: underline;
   color: blue;
 }
@@ -248,66 +249,75 @@ blockquote span {
   color: blue;
 }
 
-.task-detail h1{
+.log-detail h1{
   font-size: 1.5em;
   font-weight: 800;
   margin: 0 0 .5rem 0;
 }
 
-.task-detail h2{
+.log-detail h2{
   font-size: 1em;
   font-weight: 800;
   margin: 0 0 .5rem 0;
 }
 
-.task-detail p{
+.log-detail p{
   font-size: .875rem !important;
 }
 
-.task-detail ol{
+.log-detail ol{
   padding: revert !important;
 }
 
-.task-detail ol li{
+.log-detail ol li{
   list-style: auto;
   list-style-position: outside;
   padding: revert !important;
   font-size: .875rem !important;
 }
 
-.task-detail ul{
-  padding: revert !important;
+.log-detail ul{
+  padding: 0 0 0 25px !important;
 }
 
-.task-detail ul li{
+.log-detail ul li{
   list-style: disc;
   list-style-position: outside;
   font-size: .875rem !important;
 }
 
-.task-detail .ql-align-center{
+.log-detail .ql-align-center{
   text-align: center !important;
 }
 
-.task-detail .ql-align-right{
+.log-detail .ql-align-right{
   text-align: right !important;
 }
 
-.task-detail .ql-size-small{
+.log-detail .ql-size-small{
   font-size: .7rem !important;
   font-weight: 300;
 }
 
-.task-detail .ql-size-large{
+.log-detail .ql-size-large{
   font-size: 2rem !important;
   font-weight: 700;
 }
 
-.task-detail .ql-size-huge{
+.log-detail .ql-size-huge{
   font-size: 3rem !important;
   font-weight: bold;
 }
 
 .table-detail img{
   display: none !important;
+}
+
+::-webkit-scrollbar {
+  width: 0;  /* Remove scrollbar space */
+  background: transparent;  /* Optional: just make scrollbar invisible */
+}
+/* Optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+  background: #ffffff;
 }
