@@ -574,7 +574,7 @@ const TasksWeb = () => {
                               <Tooltip>
                                 <TooltipTrigger asChild>
                                 <div
-                                className='bg-green-500 rounded h-4 transition ease-in-out delay-150 duration-300'
+                                className='bg-green-500 rounded h-4 transition-all duration-100 ease-linear'
                                 style={{ width: `${completedPercentage}%` }}
                                 ></div>
                                 </TooltipTrigger>
@@ -587,7 +587,7 @@ const TasksWeb = () => {
                               <Tooltip>
                                 <TooltipTrigger asChild>
                                 <div
-                                className='bg-purple-500 rounded h-4 transition ease-in-out delay-150 duration-300'
+                                className='bg-purple-500 rounded h-4 transition-all duration-100 ease-linear'
                                 style={{ width: `${ongoingPercentage}%` }}
                                 ></div>
                                 </TooltipTrigger>
@@ -600,7 +600,7 @@ const TasksWeb = () => {
                               <Tooltip>
                                 <TooltipTrigger asChild>
                                 <div
-                                className='bg-stone-500 rounded h-4 transition ease-in-out delay-150 duration-300'
+                                className='bg-stone-500 rounded h-4 transition-all duration-100 ease-linear'
                                 style={{ width: `${pendingPercentage}%` }}
                                 ></div>
                                 </TooltipTrigger>
@@ -631,7 +631,7 @@ const TasksWeb = () => {
                               <Tooltip>
                                 <TooltipTrigger asChild>
                                 <div
-                                className='bg-yellow-500 rounded h-4 transition ease-in-out delay-150 duration-300'
+                                className='bg-yellow-500 rounded h-4 transition-all duration-100 ease-linear'
                                 style={{ width: `${ivanPelaporPercentage}%` }}
                                 ></div>
                                 </TooltipTrigger>
@@ -644,7 +644,7 @@ const TasksWeb = () => {
                               <Tooltip>
                                 <TooltipTrigger asChild>
                                 <div
-                                className='bg-indigo-500 rounded h-4 transition ease-in-out delay-150 duration-300'
+                                className='bg-indigo-500 rounded h-4 transition-all duration-100 ease-linear'
                                 style={{ width: `${drajatPelaporPercentage}%` }}
                                 ></div>
                                 </TooltipTrigger>
@@ -670,12 +670,12 @@ const TasksWeb = () => {
                   <Button onClick={handleAdd}>Tambah</Button>
               </div>
               <div className='mt-2 mb-4 w-[100%] p-0'>
-                  <div className='flex w-full'>
+                  <div className='flex gap-[1px] w-full'>
                     <TooltipProvider>
                       <Tooltip>
                         <TooltipTrigger asChild>
                         <div
-                        className='bg-yellow-500 h-4 transition ease-in-out delay-150 duration-300'
+                        className='bg-yellow-500 h-4 rounded transition-all duration-100 ease-linear'
                         style={{ width: `${jokoEksekutorPercentage}%` }}
                         ></div>
                         </TooltipTrigger>
@@ -688,7 +688,7 @@ const TasksWeb = () => {
                       <Tooltip>
                         <TooltipTrigger asChild>
                         <div
-                        className='bg-indigo-500 h-4 transition ease-in-out delay-150 duration-300'
+                        className='bg-indigo-500 h-4 rounded transition-all duration-100 ease-linear'
                         style={{ width: `${hanifEksekutorPercentage}%` }}
                         ></div>
                         </TooltipTrigger>
@@ -701,7 +701,7 @@ const TasksWeb = () => {
                       <Tooltip>
                         <TooltipTrigger asChild>
                         <div
-                        className='bg-rose-500 h-4 transition ease-in-out delay-150 duration-300'
+                        className='bg-rose-500 h-4 rounded transition-all duration-100 ease-linear'
                         style={{ width: `${ikkeEksekutorPercentage}%` }}
                         ></div>
                         </TooltipTrigger>
@@ -714,7 +714,7 @@ const TasksWeb = () => {
                       <Tooltip>
                         <TooltipTrigger asChild>
                         <div
-                        className='bg-lime-500 h-4 transition ease-in-out delay-150 duration-300'
+                        className='bg-lime-500 h-4 rounded transition-all duration-100 ease-linear'
                         style={{ width: `${ariaEksekutorPercentage}%` }}
                         ></div>
                         </TooltipTrigger>
@@ -727,7 +727,7 @@ const TasksWeb = () => {
                       <Tooltip>
                         <TooltipTrigger asChild>
                         <div
-                        className='bg-orange-500 h-4 transition ease-in-out delay-150 duration-300'
+                        className='bg-orange-500 h-4 rounded transition-all duration-100 ease-linear'
                         style={{ width: `${fatchurEksekutorPercentage}%` }}
                         ></div>
                         </TooltipTrigger>
@@ -740,7 +740,7 @@ const TasksWeb = () => {
                       <Tooltip>
                         <TooltipTrigger asChild>
                         <div
-                        className='bg-teal-500 h-4 transition ease-in-out delay-150 duration-300'
+                        className='bg-teal-500 h-4 rounded transition-all duration-100 ease-linear'
                         style={{ width: `${rifanEksekutorPercentage}%` }}
                         ></div>
                         </TooltipTrigger>
@@ -753,7 +753,7 @@ const TasksWeb = () => {
                       <Tooltip>
                         <TooltipTrigger asChild>
                         <div
-                        className='bg-violet-500 h-4 transition ease-in-out delay-150 duration-300'
+                        className='bg-violet-500 h-4 rounded transition-all duration-100 ease-linear'
                         style={{ width: `${evanEksekutorPercentage}%` }}
                         ></div>
                         </TooltipTrigger>
@@ -766,7 +766,7 @@ const TasksWeb = () => {
                       <Tooltip>
                         <TooltipTrigger asChild>
                         <div
-                        className='bg-fuchsia-500 h-4 transition ease-in-out delay-150 duration-300'
+                        className='bg-fuchsia-500 h-4 rounded transition-all duration-100 ease-linear'
                         style={{ width: `${ricoEksekutorPercentage}%` }}
                         ></div>
                         </TooltipTrigger>
@@ -779,7 +779,7 @@ const TasksWeb = () => {
                       <Tooltip>
                         <TooltipTrigger asChild>
                         <div
-                        className='bg-sky-500 h-4 transition ease-in-out delay-150 duration-300'
+                        className='bg-sky-500 h-4 rounded transition-all duration-100 ease-linear'
                         style={{ width: `${fahmiEksekutorPercentage}%` }}
                         ></div>
                         </TooltipTrigger>
@@ -792,7 +792,7 @@ const TasksWeb = () => {
                       <Tooltip>
                         <TooltipTrigger asChild>
                         <div
-                        className='bg-gray-500 h-4 transition ease-in-out delay-150 duration-300'
+                        className='bg-gray-500 h-4 rounded transition-all duration-100 ease-linear'
                         style={{ width: `${algiantEksekutorPercentage}%` }}
                         ></div>
                         </TooltipTrigger>
@@ -805,7 +805,7 @@ const TasksWeb = () => {
                       <Tooltip>
                         <TooltipTrigger asChild>
                         <div
-                        className='bg-stone-400 h-4 transition ease-in-out delay-150 duration-300'
+                        className='bg-stone-400 h-4 rounded transition-all duration-100 ease-linear'
                         style={{ width: `${ardyEksekutorPercentage}%` }}
                         ></div>
                         </TooltipTrigger>
@@ -818,7 +818,7 @@ const TasksWeb = () => {
                       <Tooltip>
                         <TooltipTrigger asChild>
                         <div
-                        className='bg-emerald-400 h-4 transition ease-in-out delay-150 duration-300'
+                        className='bg-emerald-400 h-4 rounded transition-all duration-100 ease-linear'
                         style={{ width: `${bakhrulEksekutorPercentage}%` }}
                         ></div>
                         </TooltipTrigger>
@@ -831,7 +831,7 @@ const TasksWeb = () => {
                       <Tooltip>
                         <TooltipTrigger asChild>
                         <div
-                        className='bg-pink-500 h-4 transition ease-in-out delay-150 duration-300'
+                        className='bg-pink-500 h-4 rounded transition-all duration-100 ease-linear'
                         style={{ width: `${fentiEksekutorPercentage}%` }}
                         ></div>
                         </TooltipTrigger>
