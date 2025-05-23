@@ -72,7 +72,7 @@ const TasksWeb = () => {
       });
 
     const [pelaporCounts, setPelaporCounts] = useState({
-        ivan: 0,
+        filza: 0,
         drajat: 0,
       });
 
@@ -99,7 +99,7 @@ const TasksWeb = () => {
 
 
     // const apiUrl = '/crud-api/tasks.php';
-    const apiUrl = '/api/logs.php';
+    const apiUrl = 'https://designchangelogs.energeek.id//api/logs.php';
 
     useEffect(() => {
       const fetchData = async () => {
@@ -390,10 +390,10 @@ const TasksWeb = () => {
 
       useEffect(() => {
         // Count tasks based on status
-        const counts = { ivan: 0, drajat: 0};
+        const counts = { filza: 0, drajat: 0};
         tasks.forEach(task => {
-          if (task.pelapor === 'ivan') {
-            counts.ivan += 1;
+          if (task.pelapor === 'filza') {
+            counts.filza += 1;
           } else if (task.pelapor === 'drajat') {
             counts.drajat += 1;
           }
@@ -403,7 +403,7 @@ const TasksWeb = () => {
     
       // Calculate total number of tasks
       const totalPelaporTasks = tasks.length;
-      const ivanPelaporPercentage = totalPelaporTasks ? (pelaporCounts.ivan / totalPelaporTasks) * 100 : 0;
+      const filzaPelaporPercentage = totalPelaporTasks ? (pelaporCounts.filza / totalPelaporTasks) * 100 : 0;
       const drajatPelaporPercentage = totalPelaporTasks ? (pelaporCounts.drajat / totalPelaporTasks) * 100 : 0;
 
       useEffect(() => {
@@ -632,11 +632,11 @@ const TasksWeb = () => {
                                 <TooltipTrigger asChild>
                                 <div
                                 className='bg-yellow-500 rounded h-4 transition-all duration-100 ease-linear'
-                                style={{ width: `${ivanPelaporPercentage}%` }}
+                                style={{ width: `${filzaPelaporPercentage}%` }}
                                 ></div>
                                 </TooltipTrigger>
                                 <TooltipContent>
-                                  <p>Ivan {ivanPelaporPercentage}%</p>
+                                  <p>filza {filzaPelaporPercentage}%</p>
                                 </TooltipContent>
                               </Tooltip>
                             </TooltipProvider>
@@ -657,7 +657,7 @@ const TasksWeb = () => {
                           <div className='flex gap-x-2 my-2'>
                               <div className='flex items-center gap-1'>
                               <div className='h-2 w-2 rounded-full bg-yellow-500'></div>
-                              <p className='text-xs font-light opacity-100'>Ivan</p>
+                              <p className='text-xs font-light opacity-100'>filza</p>
                               </div>
                               <div className='flex items-center gap-1'>
                               <div className='h-2 w-2 rounded-full bg-indigo-500'></div>
@@ -957,7 +957,7 @@ const TasksWeb = () => {
                                     onChange={(e) => handlePelaporChange(task.id, e.target.value)}
                                     className="p-2 bg-transparent rounded dark:bg-black"
                                 >
-                                    <option value="ivan">Ivan</option>
+                                    <option value="filza">filza</option>
                                     <option value="drajat">Drajat</option>
                                 </select>
                             </TableCell>

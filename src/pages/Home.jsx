@@ -31,6 +31,7 @@ import {
   } from "@/components/ui/tooltip"
 import { motion, AnimatePresence } from 'framer-motion';
 import { Helmet } from 'react-helmet';
+import ClearCookies from './ClearCookies';
 
 const Home = () => {
     const [projects, setProjects] = useState([]);
@@ -194,6 +195,7 @@ const Home = () => {
                     <div className='flex items-center gap-2'>
                         <img src='/e.svg' className='w-8' />
                         <h1 className="text-2xl font-bold">Energeek - Design Changelogs </h1> 
+                        <ClearCookies />
                     </div>
                     <ModeToggle />
                 </div>
